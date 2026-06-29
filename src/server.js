@@ -1,10 +1,5 @@
-require("dotenv").config();
-const express = require("express");
-
-const app = express();
-const pool = require("./db");
-
-app.use(express.json());
+import "dotenv/config";
+import app from "./app.js";
 
 app.get("/", (req, res) => {
   res.send("Kolo API is running");
