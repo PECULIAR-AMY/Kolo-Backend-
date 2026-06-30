@@ -1,11 +1,28 @@
 import jwt from "jsonwebtoken";
 
-function generateToken(userId) {
+import { jwtConfig } from "../config/jwt.js";
+
+export function generateAccessToken(user) {
   return jwt.sign(
-    { id: userId },
-    process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN }
+    {
+      id: user.id,
+      email: user.email,
+    },
+    jwtConfig.accessSecret,
+    {
+      expiresIn: jwtConfig.accessExpires,
+    }
   );
 }
 
-export default generateToken;
+export function generateRefreshToken(user) {
+  return jwt.sign(
+    {
+      id: user.id,
+    },
+    jwtConfig.refreshSecret,
+    {
+      expiresIn: jwtConfig.refreshExpires,
+    }
+  );
+}
